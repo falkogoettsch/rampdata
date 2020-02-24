@@ -1,3 +1,5 @@
+utils::globalVariables("data_config", package = "rampdata")
+
 #' Reads configuration file on where to download data.
 #'
 #' It stores that configuration in `data_config`
