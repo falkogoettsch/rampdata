@@ -4,15 +4,19 @@
 \alias{ramp_path}
 \title{Formats a base path for a file.}
 \usage{
-ramp_path(country, project, stage)
+ramp_path(stage, location, project, user, rproject, path = NULL)
 }
 \arguments{
-\item{country}{If this is associated with a country. Can be NULL.}
+\item{stage}{One of (input, working, output). Must not be NULL.}
+
+\item{location}{If this is associated with a location. Can be NULL.}
 
 \item{project}{The Github project or R project name, without a slash.
 Can be NULL.}
 
-\item{stage}{One of (source, user, prod). Must not be NULL.}
+\item{user}{The username for the person's working directory.}
+
+\item{rproject}{The Rstudio project name.}
 }
 \value{
 a path to use as a base path for this dataset.

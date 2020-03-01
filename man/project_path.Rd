@@ -4,19 +4,19 @@
 \alias{project_path}
 \title{Creates a path relative to the project root, following}
 \usage{
-project_path(country, project, stage)
+project_path(file_id)
 }
 \arguments{
-\item{country}{If this is associated with a country. Can be NULL.}
-
-\item{project}{The Github project or R project name, without a slash.
-Can be NULL.}
-
-\item{stage}{One of (source, user, prod). Must not be NULL.}
+\item{file_id}{A list with keys (stage, location, project, user, rproject).
+If user is missing, the effective user is supplied.
+Only stage is required.}
 }
 \value{
 a path to use as a base path for this dataset.
 }
 \description{
 Creates a path relative to the project root, following
+}
+\seealso{
+\link{ramp_path}
 }

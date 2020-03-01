@@ -1,0 +1,29 @@
+---
+title: "Demonstrate Package"
+output: html_notebook
+params:
+  data_config: !r rampdata::data_configuration()
+---
+
+# Overview
+
+This notebook demonstrates the \link{rampdata} package.
+It defines the data configuration in a header.
+This data configuration can then help find data
+within code.
+
+```{r find_data}
+cat(params$data_config$LOCALDATA)
+```
+
+```{r show_path}
+shapefile <- list(location = "uganda", stage = "input", path = "UBOS/outline.shp")
+rampdata::local_path(shapefile, params$data_config)
+```
+
+```{r a_working_path}
+edited_shapefile <- list(stage = "working", path = "UBOS/outline_fixed.shp",
+                         project = "rampdata")
+rampdata::local_path(edited_shapefile, params$data_config)
+```
+

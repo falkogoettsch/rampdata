@@ -1,3 +1,13 @@
+#' The fully-rooted local path to a file.
+#' @param file_id A list identifying the file.
+#' @param config A configuration from \link{data_configuration}.
+#' @return A fully-rooted path.
+#' @export
+local_path <- function(file_id, config) {
+  fs::path(config$LOCALDATA, project_path(file_id))
+}
+
+
 #' Ensure files are available locally.
 #'
 #' @param ramp_identifiers A list of RAMP IDs.
