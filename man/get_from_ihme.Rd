@@ -4,7 +4,7 @@
 \alias{get_from_ihme}
 \title{Use scp to retrieve data.}
 \usage{
-get_from_ihme(session, filename, local_directory = "inst/extdata")
+get_from_ihme(session, filename, data_configuration = NULL)
 }
 \arguments{
 \item{session}{An ssh session.}

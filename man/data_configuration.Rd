@@ -4,7 +4,12 @@
 \alias{data_configuration}
 \title{Reads configuration file on where to download data.}
 \usage{
-data_configuration()
+data_configuration(section = "Default")
+}
+\arguments{
+\item{section}{Which section of the initialization file to read.
+This defaults to \code{Default}. This parameter exists in order
+to create a \code{Test} section to use for non-destructive testing.}
 }
 \value{
 A list of configuration parameters.

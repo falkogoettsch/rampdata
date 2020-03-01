@@ -68,25 +68,49 @@ get_from_ihme <- function(session, filename, data_configuration = NULL) {
 }
 
 
+
+
 #' Use scp to send data.
+#'
+#' Responsible for moving files within a certain set of remote
+#' and local directory structures, as specified by the data configuration.
+#' This will create directories and ensure that files aren't
+#' overwritten by the copy command.
 #'
 #' @param session An ssh session.
 #' @param filename The path of the file within the repository.
+#' @param overwrite Whether it is OK to overwrite the destination file.
 #' @param local_directory Where to put that file on the local machine.
 #' @export
-send_to_ihme <- function(session, filename, data_configuration = NULL) {
+send_to_ihme <- function(session, filename, overwrite = TRUE, data_configuration = NULL) {
   if (is.null(data_configuration)) {
     config <- rampdata::data_configuration()
   } else {
     config <- data_configuration
   }
   source <- fs::path(config$LOCALDATA, filename)
-  target <- fs::path(config$SCPHOSTBASE, fs::path_dir(filename))
+  if (!file.exists(source)) {
+    warning(paste("file", source, "does not exist\n"))
+    return()
+  }
+  target_file <- fs::path(config$SCPHOSTBASE, filename)
+  target_directory <- fs::path_dir(target_file)
   # fs::path makes paths for the local system, but the remote system
   # is always Unix.
-  ssh::ssh_exec_wait(session, command = paste("mkdir -p", target))
-  ssh::scp_upload(session, source, to = target)
+  ssh::ssh_exec_internal(session, paste("mkdir -p", target_directory))
+  stat_finds_file <- ssh::ssh_exec_internal(
+    session,
+    command = paste("stat", target_file),  # The result of the stat command will be the status.
+    error = FALSE
+    )
+  if (overwrite | stat_finds_file$status == 1) {
+    ssh::scp_upload(session, source, to = target_directory)
+  } else {
+    stop(paste("Did not transfer because this would overwrite:", filename))
+  }
 }
+
+
 
 
 #' Retrieve worldpop data.

@@ -22,19 +22,71 @@ test_that("transfer finds initialization", {
 
 test_that("local file goes there and back", {
   # Set up the test file.
-  play_dir <- fs::path(base::tempdir(), "file_goes")
-  test_file <- fs::path("working", "goes.txt")
-  test_file_rooted <- fs::path(play_dir, test_file)
-  dir.create(fs::path(play_dir, fs::path_dir(test_file)), recursive = TRUE, showWarnings = FALSE)
-  cat("some odd stuff\n", file = fs::path(play_dir, test_file))
+  test_config <- rampdata::data_configuration("Test")
+  test_file_relative <- fs::path("working", "goes.txt")
+  test_file_rooted <- fs::path(test_config$LOCALDATA, test_file_relative)
+  play_dir <- fs::path_dir(test_file_rooted)
+  dir.create(
+    play_dir,
+    recursive = TRUE,
+    showWarnings = FALSE
+    )
+  cat("some odd stuff\n", file = test_file_rooted)
+  expect_true(file.exists(test_file_rooted))
 
   # Send it there.
-  config <- rampdata::data_configuration("Test")
-  ssh_session <- ssh::ssh_connect(config$SCPHOST)
-  send_to_ihme(ssh_session, test_file, data_configuration = config)
-  file.remove()
+  capture.output({
+      ssh_session <- ssh::ssh_connect(test_config$SCPHOST, verbose = 0)
+    },
+    type = "output"
+  )
+  send_to_ihme(ssh_session, test_file_relative, data_configuration = test_config)
+  file.remove(test_file_rooted)
   expect_true(!file.exists(test_file_rooted))
-  get_from_ihme(ssh_session, test_file, data_configuration = config)
+  get_from_ihme(ssh_session, test_file_relative, data_configuration = test_config)
   expect_true(file.exists(test_file_rooted))
   ssh::ssh_disconnect(ssh_session)
+  file.remove(test_file_rooted)
+  unlink(play_dir)
+})
+
+
+
+
+test_that("overwrite raises an error", {
+  # Set up the test file.
+  test_config <- rampdata::data_configuration("Test")
+  test_file_relative <- fs::path("overwrite", "overwrite.txt")
+  test_file_rooted <- fs::path(test_config$LOCALDATA, test_file_relative)
+  play_dir <- fs::path_dir(test_file_rooted)
+  dir.create(
+    play_dir,
+    recursive = TRUE,
+    showWarnings = FALSE
+  )
+  cat("some odd stuff\n", file = test_file_rooted)
+  expect_true(file.exists(test_file_rooted))
+
+  # Send it there.
+  capture.output({
+    ssh_session <- ssh::ssh_connect(test_config$SCPHOST, verbose = 0)
+  },
+  type = "output"
+  )
+  send_to_ihme(ssh_session, test_file_relative, data_configuration = test_config)
+  had_error <- FALSE
+  tryCatch(
+    send_to_ihme(
+      ssh_session,
+      test_file_relative,
+      data_configuration = test_config,
+      overwrite = FALSE
+      ),
+    error = function(c) {had_error <<- TRUE}
+  )
+
+  ssh::ssh_disconnect(ssh_session)
+  file.remove(test_file_rooted)
+  unlink(play_dir)
+  expect_true(had_error)
 })

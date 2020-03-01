@@ -4,15 +4,20 @@
 \alias{send_to_ihme}
 \title{Use scp to send data.}
 \usage{
-send_to_ihme(session, filename, local_directory = "inst/extdata")
+send_to_ihme(session, filename, overwrite = TRUE, data_configuration = NULL)
 }
 \arguments{
 \item{session}{An ssh session.}
 
 \item{filename}{The path of the file within the repository.}
 
+\item{overwrite}{Whether it is OK to overwrite the destination file.}
+
 \item{local_directory}{Where to put that file on the local machine.}
 }
 \description{
-Use scp to send data.
+Responsible for moving files within a certain set of remote
+and local directory structures, as specified by the data configuration.
+This will create directories and ensure that files aren't
+overwritten by the copy command.
 }
