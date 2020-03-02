@@ -1,3 +1,13 @@
+#' The fully-rooted local path to a file.
+#' @param file_id A list identifying the file.
+#' @param config A configuration from \link{data_configuration}.
+#' @return A fully-rooted path.
+#' @export
+local_path <- function(file_id, config) {
+  fs::path(config$LOCALDATA, project_path(file_id))
+}
+
+
 #' Ensure files are available locally.
 #'
 #' @param ramp_identifiers A list of RAMP IDs.
@@ -20,4 +30,13 @@ ensure_present <- function(ramp_identifiers) {
     }
     ssh::ssh_disconnect(ssh_session)
   }
+}
+
+
+#' Ensure a set of local files are on the server.
+#'
+#' @param ramp_identifiers A list of RAMP IDs.
+#' @export
+ensure_on_server <- function(ramp_identifiers) {
+
 }
