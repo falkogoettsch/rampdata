@@ -13,48 +13,116 @@
 #' @return a path to use as a base path for this dataset.
 #' @export
 ramp_path <- function(stage, location, project, user, rproject, path = NULL) {
-  if (stage == "input") {
-    if (!is.null(location)) {
-      base <- fs::path("countries", location)
-    } else if (!is.null(project)) {
-      base <- fs::path("projects", project)
-    } else if (!is.null(rproject)) {
-      base <- fs::path("rprojects", rproject)
+  stopifnot(stage %in% c("input", "output", "working"))
+
+  used <- list()
+  # Keep track of which tokens were used and which weren't.
+  using <- function(key) {
+    if (!is.null(key)) {
+      used[key] <<- TRUE
+      return(TRUE)
+    }
+    FALSE
+  }
+
+  using(stage)
+  if (using(project)) {
+    if (stage == "input") {
+      base <- fs::path("projects", project, "inputs")
+    } else if (stage == "output") {
+      base <- fs::path("projects", project, "outputs")
     } else {
-      stop("An input file needs a location, project, or rproject.")
+      # stage == working
+      if (using(user)) {
+        base <- fs::path("projects", project, "users", user)
+      } else {
+        stop("Must have username to put working data under a project.")
+      }
     }
-    final <- base
-  } else if (stage == "working") {
-    if (is.null(user)) {
-      stop("All working data is stored by username, so supply a user when stage=working.")
+  } else if (using(rproject)) {
+    base <- fs::path("libraries", rproject, "inst", "extdata")
+    if (using(user)) {
+      base <- fs::path(base, "users", user)
     }
-    base <- fs::path("users", user)
-    if (!is.null(project)) {
-      final <- fs::path(base, project)
-    } else if (!is.null(rproject)) {
-      final <- fs::path(base, rproject)
-    } else {
-      final <- base
-    }
-  } else if (stage == "output") {
-    if (!is.null(project)) {
-      base <- fs::path("projects", project)
-    } else if (!is.null(rproject)) {
-      base <- fs::path("rprojects", rproject)
-    } else {
-      stop("An output file needs a project, or rproject.")
-    }
-    final <- base
   } else {
-    stop(paste("stage should be one of (working, input, output) but is", stage))
+    if (stage == "input") {
+      base <- fs::path("inputs")
+    } else {
+      if (using(user)) {
+        base <- fs::path("users", user)
+      } else {
+        stop("Nowhere to put a file that has no project, rproject, or user
+             and is an output or working.")
+      }
+    }
   }
-  if (!is.null(path)) {
-    final <- fs::path(final, path)
+
+  # Location is tacked onto the end if it's used.
+  if (using(location)) {
+    base <- fs::path(base, "locations", location)
+  } # else don't tack a location on the end.
+  if (using(path)) {
+    base <- fs::path(base, path)
   }
-  final
+  list(path = base, used = used)
 }
 
 
+
+#' Turns a relative path into a ramp path.
+#'
+#' @param path A path relative to the base data directory.
+#' @return A list that is a ramp path.
+#' @examples
+#' inverse_ramp_path("users/ad") == list(stage = "working", user = "ad")
+#' @export
+inverse_ramp_path <- function(path) {
+  splitted <- fs::path_split(path)[[1]]
+  ramp_path <- list()
+  if (splitted[1] == "inputs") {
+    ramp_path["stage"] <- "input"
+    rest_idx <- 2
+  } else if (splitted[1] == "users") {
+    ramp_path["user"] <- splitted[2]
+    ramp_path["stage"] <- "working"
+    rest_idx <- 3
+  } else if (splitted[1] == "projects") {
+    ramp_path["project"] <- splitted[2]
+    if (splitted[3] == "inputs") {
+      ramp_path["stage"] <- "input"
+      rest_idx <- 4
+    } else if (splitted[3] == "outputs") {
+      ramp_path["stage"] <- "output"
+      rest_idx <- 4
+    } else if (splitted[3] == "users") {
+      ramp_path["stage"] <- "working"
+      ramp_path["user"] <- splitted[4]
+      rest_idx <- 5
+    } else {
+      stop("project directory must be inputs, outputs, or users")
+    }
+  } else if (splitted[1] == "libraries") {
+    ramp_path["rproject"] <- splitted[2]
+    ramp_path["stage"] <- "working"
+    if (length(splitted) > 4 & splitted[5] == "users") {
+      ramp_path["user"] <- splitted[6]
+      rest_idx <- 7
+    } else {
+      rest_idx <- 3
+    }
+  }
+
+  # add location
+  if (length(ramp_path) >= rest_idx & ramp_path[rest_idx] == "location") {
+    ramp_path["location"] <- ramp_path[rest_idx + 1]
+    rest_idx <- rest_idx + 2
+  }
+  # add path
+  if (length(ramp_path) >= rest_idx) {
+    ramp_path["path"] <- ramp_path[rest_idx:length(ramp_path)]
+  }
+  ramp_path
+}
 
 
 #' Creates a path relative to the project root, following
@@ -78,5 +146,5 @@ project_path <- function(file_id) {
   for (name in names(file_id)) {
     complete[[name]] <- file_id[[name]]
   }
-  do.call(ramp_path, complete)
+  do.call(ramp_path, complete)$path
 }
