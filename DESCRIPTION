@@ -10,8 +10,8 @@ License: What license is it under?
 Encoding: UTF-8
 LazyData: true
 Imports:
-    ssh,
     curl
 RoxygenNote: 7.0.2
 Suggests: 
+    ssh,
     testthat (>= 2.1.0)
