@@ -11,6 +11,10 @@ repository or on cloud storate. This transfers that data to
 your machine on request, or it transfers that data from your
 machine to the appropriate place on the repository.
 }
+\details{
+There is a vignette with an example notebook using rampdata:
+\code{vignette("ramp_example", package = "rampdata")}
+}
 \section{User Interface Methods}{
 
 
@@ -19,6 +23,7 @@ machine to the appropriate place on the repository.
   \item \link{ensure_present} - Ensure files are available locally.
   \item \link{ensure_on_server} - Ensure a set of local files are on the server.
   \item \link{data_configuration} - Reads configuration file on where to download data.
+  \item \link{save_source} - Save information about a directory or data file.
 }
 }
 
@@ -38,6 +43,7 @@ machine to the appropriate place on the repository.
 \itemize{
   \item \link{get_from_ihme} - Use scp to retrieve data.
   \item \link{send_to_ihme} - Use scp to send data.
+  \item \link{un7zip} - Unzip a 7zip file.
   \item \link{download_worldpop} - Retrieve worldpop data.
   \item \link{download_bioko_grids} - Retrieve Bioko grid data.
 }

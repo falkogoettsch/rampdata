@@ -16,6 +16,7 @@
 #'   \item \link{ensure_present} - Ensure files are available locally.
 #'   \item \link{ensure_on_server} - Ensure a set of local files are on the server.
 #'   \item \link{data_configuration} - Reads configuration file on where to download data.
+#'   \item \link{save_source} - Save information about a directory or data file.
 #' }
 #'
 #'

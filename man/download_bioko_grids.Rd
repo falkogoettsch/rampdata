@@ -4,12 +4,16 @@
 \alias{download_bioko_grids}
 \title{Retrieve Bioko grid data.}
 \usage{
-download_bioko_grids(local_directory = "inst/extdata")
+download_bioko_grids(session, local_directory = "inst/extdata")
 }
 \arguments{
+\item{session}{An ssh session object.}
+
 \item{local}{directory Where to put that file on the local machine.}
 }
 \description{
+This is an example of what we have to do in order to transfer
+zipped data.
 Bioko grids are two shapefiles in UTM zone 32N projection.
 The 100m grids are secs.shp and the 1km are mapareas.shp.
 The two grids align in this projection.

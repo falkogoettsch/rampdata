@@ -30,6 +30,7 @@ Put the following in it.
 [Default]
 SCPHOST = computer-name.ihme.uw.edu
 SCPHOSTBASE = /path/to/data/directory
+LOCALDATA = /home/username/data
 }
 
 }
