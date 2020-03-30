@@ -8,6 +8,30 @@ local_path <- function(file_id, config) {
 }
 
 
+#' Save information about a directory or data file.
+#'
+#' Some well-known properties:
+#'
+#' \itemize{
+#'   \item title Something you would call this data.
+#'   \item download_date When the file was
+#'   \item creator Person or organization that made the file.
+#'   \item format Describe the data format.
+#'   \item source_repository The git repository of code that made the data.
+#'   \item source_version Version number of the source code.
+#'   \item source_branch Branch of the code that made the data.
+#'   \item description A free text description of what's in the file.
+#'   \item creation_date When the file was created.
+#' }
+#'
+#' @param path The path to the directory or file.
+#' @param properties A list of information about that path.
+#' @export
+document_path <- function(path, properties) {
+
+}
+
+
 #' Ensure files are available locally.
 #'
 #' @param ramp_identifiers A list of RAMP IDs.
@@ -34,6 +58,8 @@ ensure_present <- function(ramp_identifiers) {
 
 
 #' Ensure a set of local files are on the server.
+#'
+#' Not implemented.
 #'
 #' @param ramp_identifiers A list of RAMP IDs.
 #' @export

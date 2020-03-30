@@ -1,12 +1,15 @@
 Package: rampdata
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Finds data and places data for the RAMP project.
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: adolgert@uw.edu
+Maintainer: Drew Dolgert <adolgert@uw.edu>
+Description: We work on a cluster and on desktops, and we use a lot of data.
+    That data needs to come from the cluster, go to the cluster, or come from
+    external sources. This library organizes that data so that everybody
+    can get to what they need or know where to put it so that other team
+    members can find it.
+License: MIT 2.0
 Encoding: UTF-8
 LazyData: true
 Imports:

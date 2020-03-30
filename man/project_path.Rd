@@ -2,7 +2,7 @@
 % Please edit documentation in R/organization.R
 \name{project_path}
 \alias{project_path}
-\title{Creates a path relative to the project root, following}
+\title{Creates a path relative to the project root}
 \usage{
 project_path(file_id)
 }
@@ -15,7 +15,7 @@ Only stage is required.}
 a path to use as a base path for this dataset.
 }
 \description{
-Creates a path relative to the project root, following
+Creates a path relative to the project root
 }
 \seealso{
 \link{ramp_path}

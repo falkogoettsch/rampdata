@@ -21,6 +21,7 @@ utils::globalVariables("data_config", package = "rampdata")
 #' [Default]
 #' SCPHOST = computer-name.ihme.uw.edu
 #' SCPHOSTBASE = /path/to/data/directory
+#' LOCALDATA = /home/username/data
 #' }
 #'
 #' @export
@@ -115,6 +116,8 @@ send_to_ihme <- function(session, filename, overwrite = TRUE, data_configuration
 
 #' Retrieve worldpop data.
 #'
+#' This is an example of a dataset that can be retrieved with Curl
+#' if we record its location.
 #' Worldpop returns several GeoTIFFs in WGS 84.
 #' GNQ = Equatorial Guinea
 #' 10 or 15 is 2010 or 2015 data.
@@ -141,17 +144,20 @@ download_worldpop <- function(local_directory = "inst/extdata", overwrite = FALS
 
 #' Retrieve Bioko grid data.
 #'
+#' This is an example of what we have to do in order to transfer
+#' zipped data.
 #' Bioko grids are two shapefiles in UTM zone 32N projection.
 #' The 100m grids are secs.shp and the 1km are mapareas.shp.
 #' The two grids align in this projection.
+#' @param session An ssh session object.
 #' @param local directory Where to put that file on the local machine.
 #' @export
-download_bioko_grids <- function(local_directory = "inst/extdata") {
+download_bioko_grids <- function(session, local_directory = "inst/extdata") {
   filename <- "Bioko_grids.zip"
   local_path <- fs::path(local_directory, filename)
   destination_directory <- fs::path_ext_remove(local_path)
   if (!file.exists(local_path)) {
-    get_from_ihme(filename)
+    get_from_ihme(session, filename)
   }
   if (!dir.exists(destination_directory)) {
     dir.create(destination_directory)
