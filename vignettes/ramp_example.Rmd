@@ -60,3 +60,15 @@ in order to find the location of the data on your machine. It reads
 this configuration information from a `data.ini` file. Look at the help
 for `data_configuration` for an example of the `data.ini` and what to
 put in it.
+
+We use the params because it is a portable way to set parameters.
+For instance, if you want to render a document from the command
+line, you can set them from there.
+```{bash, eval = FALSE}
+R -e "rmarkdown::render('ramp_example.Rmd', params = list(data_config = '.'))"
+```
+This method works for running single functions, too,
+so instead of running a script, we run a function from the package, through R.
+```{bash, eval = FALSE}
+R -e "gisdemog::generate_population()"
+```
