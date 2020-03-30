@@ -1,4 +1,4 @@
-#' Formats a base path for a file.
+#' Formats a base path for a file given all keys.
 #'
 #' This function reflects how we want to organize files.
 #' It returns a path relative to whatever is the
@@ -125,7 +125,7 @@ inverse_ramp_path <- function(path) {
 }
 
 
-#' Creates a path relative to the project root, following
+#' Creates a path relative to the project root
 #'
 #' @param file_id A list with keys (stage, location, project, user, rproject).
 #'   If user is missing, the effective user is supplied.

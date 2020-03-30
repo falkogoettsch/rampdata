@@ -12,6 +12,8 @@ download_worldpop(local_directory = "inst/extdata", overwrite = FALSE)
 \item{local}{directory Where to put that file on the local machine.}
 }
 \description{
+This is an example of a dataset that can be retrieved with Curl
+if we record its location.
 Worldpop returns several GeoTIFFs in WGS 84.
 GNQ = Equatorial Guinea
 10 or 15 is 2010 or 2015 data.

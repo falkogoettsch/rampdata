@@ -2,7 +2,7 @@
 % Please edit documentation in R/organization.R
 \name{ramp_path}
 \alias{ramp_path}
-\title{Formats a base path for a file.}
+\title{Formats a base path for a file given all keys.}
 \usage{
 ramp_path(stage, location, project, user, rproject, path = NULL)
 }

@@ -10,5 +10,5 @@ ensure_on_server(ramp_identifiers)
 \item{ramp_identifiers}{A list of RAMP IDs.}
 }
 \description{
-Ensure a set of local files are on the server.
+Not implemented.
 }
