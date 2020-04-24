@@ -39,7 +39,7 @@ The parameters `location` and `path` are appended to the end of the path and are
 <assembled path>/locations/<location>/<path>
 ```
 
-**input|output [location] project [user] [path (default: NULL)]** [^1]
+**input|output [location] project [user] [path (default: NULL)]** <sup>1</sup>
 
 ```Shell
 projects/<project>/<inputs>
@@ -54,14 +54,14 @@ projects/<project>/<outputs>/users/<user>
 projects/<project>/users/<user>
 ```
 
-**input|output|working [location] rproject [user] [path (default: NULL)]** [^2]
+**input|output|working [location] rproject [user] [path (default: NULL)]** <sup>2</sup>
 
 ```Shell
 libraries/<rproject>/inst/extdata
 libraries/<rproject>/inst/extdata/users/<user>
 ```
 
-**input [location] [user] [path (default: NULL)]** [^3]
+**input [location] [user] [path (default: NULL)]** <sup>3</sup>
 
 ```Shell
 inputs
@@ -75,11 +75,9 @@ outputs/users/<user>
 working/users/<user>
 ```
 
-
-[^1] user is optional but ignored
-[^2] input|output|working is required but ignored
-[^3] user is optional but ignored
-
+<sup>1</sup> user is optional but ignored
+<sup>2</sup> input|output|working is required but ignored
+<sup>3</sup> user is optional but ignored
 
 ## Credits
 
