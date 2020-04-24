@@ -28,8 +28,8 @@ $HOME/.ramp.ini
 
 Valid combinations of parameters and their mapping to paths are as follows:
 
-_ _(`[]`) indicate optional parameters_ _
-_ _(`|`) indicate a list of possible parameters_ _
+_(`[]`) indicate optional parameters_
+_(`|`) indicate a list of possible parameters_
 
 The parameters `location` and `path` are appended to the end of the path and are always optional. If both are specified, `location` is appended first.
 
@@ -39,7 +39,7 @@ The parameters `location` and `path` are appended to the end of the path and are
 <assembled path>/locations/<location>/<path>
 ```
 
-** **input|output [location] project [user] [path (default: NULL)]** ** [^1]
+**input|output [location] project [user] [path (default: NULL)]** [^1]
 
 ```Shell
 projects/<project>/<inputs>
@@ -48,27 +48,27 @@ projects/<project>/<outputs>
 projects/<project>/<outputs>/users/<user>
 ```
 
-** **working [location] project user [path (default: NULL)]** **
+**working [location] project user [path (default: NULL)]**
 
 ```Shell
 projects/<project>/users/<user>
 ```
 
-** **input|output|working [location] rproject [user] [path (default: NULL)]** ** [^2]
+**input|output|working [location] rproject [user] [path (default: NULL)]** [^2]
 
 ```Shell
 libraries/<rproject>/inst/extdata
 libraries/<rproject>/inst/extdata/users/<user>
 ```
 
-** **input [location] [user] [path (default: NULL)]** ** [^3]
+**input [location] [user] [path (default: NULL)]** [^3]
 
 ```Shell
 inputs
 inputs/users/<user>
 ```
 
-** **output|working [location] user [path (default: NULL)]** **
+**output|working [location] user [path (default: NULL)]**
 
 ```Shell
 outputs/users/<user>
