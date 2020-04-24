@@ -28,8 +28,9 @@ $HOME/.ramp.ini
 
 Valid combinations of parameters and their mapping to paths are as follows:
 
-   _(`[]`) indicate optional parameters_
-   _(`|`) indicate a list of possible parameters_
+_(`[]`) indicate optional parameters_
+
+_(`|`) indicate a list of possible parameters_
 
 The parameters `location` and `path` are appended to the end of the path and are always optional. If both are specified, `location` is appended first.
 
@@ -75,9 +76,11 @@ outputs/users/<user>
 working/users/<user>
 ```
 
-   <sup>1</sup> `user` is optional but ignored
-   <sup>2</sup> `input|output|working` is required but ignored
-   <sup>3</sup> `user` is optional but ignored
+<sup>1</sup> `user` is optional but ignored
+
+<sup>2</sup> `input|output|working` is required but ignored
+
+<sup>3</sup> `user` is optional but ignored
 
 ## Credits
 
