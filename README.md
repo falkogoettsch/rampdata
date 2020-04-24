@@ -26,12 +26,11 @@ $HOME/.config/RAMP/data.ini
 $HOME/.ramp.ini
 ```
 
-#### Valid combinations of parameters and their mapping to paths
+### Valid combinations of parameters and their mapping to paths
 
----
-*Note:*
+**Note:**
 
-`[]` _indicate optional parameters_
+`[]` _indicate optional parameters_\
 `|` _indicates a list of possible parameters_
 
 The parameters `location` and `path` are appended to the end of the path and are always optional. If both are specified, `location` is appended first.
